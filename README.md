@@ -116,7 +116,7 @@ Identifies that the capture process for the request has finally been completely 
 ---
 
 ## 4. Exception and Boundary Handling
-**Active Cleanup on Disconnection**: If an unexpected error occurs or the underlying WebSocket connection is completely disconnected, the PC receiving program must actively discard and clean up invalid fragment records that are still in the assembly stage in memory and for which no `req_end` event has been received.
+**Active Cleanup on Disconnection**: If an unexpected error occurs or the underlying WebSocket connection is completely disconnected, the receiving program must actively discard and clean up invalid fragment records that are still in the assembly stage in memory and for which no `req_end` event has been received.
 
 ## 5. License
 This real-time sync protocol specification is protected under the **MIT License**. Any developer or organization is free to modify or implement various receiving ends and desktop analysis software compatible with ApiCatcher based on this specification, both for free and commercially, without assuming additional responsibilities.
