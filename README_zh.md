@@ -63,8 +63,8 @@
 ```
 
 #### 3.3.2 `req_body` 与 `res_body`（分片数据传输）
-无论是 Request Body 还是 Response Body，抓包探针在底层流式消费时，每次读取一定容量（比如 16KB 或 32KB）就会立即打包成独立的一个 Frame 投递给 PC。
-**(注：对于报文体较大的请求，接收端会按序收到多条相同 requestId 的此类型包)**
+无论是 Request Body 还是 Response Body，抓包探针在底层流式消费时，每次读取一定容量（比如 16KB 或 32KB）就会立即打包成独立的一个 Frame 投递给接收端。
+**(注：对于报文体较大的请求，接收端会按序收到多条具有相同 requestId 的此类型包。ApiCatcher 保证分片会按顺序发送，由于 WebSocket 基于 TCP 的有序性，接收端收到的顺序即为发送顺序，只需要按接收顺序直接进行 Base64 解码并合并即可。)**
 ```json
 {
   "type": "http",
@@ -72,9 +72,7 @@
   "event": "res_body",
   "timestamp": 1711268370123,
   "payload": {
-    "chunkIndex": 0,
-    "data": "eyBzdWNjZXNz... (二进制被转为Base64字符串的碎片)", 
-    "isLast": false // 此标记指示该片是否为最后一片数据
+    "data": "eyBzdWNjZXNz... (二进制被转为Base64字符串的碎片)"
   }
 }
 ```

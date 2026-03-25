@@ -63,8 +63,8 @@ Triggered immediately when the App intercepts an outbound API request, containin
 ```
 
 #### 3.3.2 `req_body` and `res_body` (Chunked Data Transmission)
-Whether it is the Request Body or Response Body, when the capture probe consumes the stream at the bottom layer, it will immediately package vertical chunks (e.g., 16KB or 32KB) into independent Frames and deliver them to the PC.
-**(Note: For requests with large message bodies, the receiving end will receive multiple packages of this type with the same requestId in sequence)**
+Whether it is the Request Body or Response Body, when the capture probe consumes the stream at the bottom layer, it will immediately package vertical chunks (e.g., 16KB or 32KB) into independent Frames and deliver them to the receiving end.
+**(Note: For requests with large message bodies, the receiving end will receive multiple packages of this type with the same requestId in sequence. ApiCatcher guarantees that fragments are sent in order. Since WebSocket is based on TCP's ordering, the sequence received matches the sequence sent; simply decode and merge them in the order received.)**
 ```json
 {
   "type": "http",
@@ -72,9 +72,7 @@ Whether it is the Request Body or Response Body, when the capture probe consumes
   "event": "res_body",
   "timestamp": 1711268370123,
   "payload": {
-    "chunkIndex": 0,
-    "data": "eyBzdWNjZXNz... (Base64 string fragment of binary data)", 
-    "isLast": false // This flag indicates whether this is the last piece of data
+    "data": "eyBzdWNjZXNz... (Base64 string fragment of binary data)"
   }
 }
 ```
