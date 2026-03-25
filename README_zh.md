@@ -113,10 +113,14 @@
 ```
 *接收端在收到此事件或因故监测到 WebSocket 断开连接时，应当释放并完结对当前 `requestId` 的本地句柄或内存缓存。*
 
+## 4. 相关实现
+
+- **Java SDK**: [apicatcher-sync-sdk-java](https://github.com/apicatcher/apicatcher-sync-sdk-java)
+
 ---
 
-## 4. 异常与边界处理
+## 5. 异常与边界处理
 **断网主动清理**：如果底层 WebSocket 连接发生非预期的抛错或彻底断开，接收端程序必须主动废除并清理目前内存中还在组装阶段、且未收到 `req_end` 事件的失效碎片记录。
 
-## 5. 许可与开源声明 (License)
+## 6. 许可与开源声明 (License)
 这份实时同步协议规范受 **MIT License** 保护。任何开发者和机构均可免费、商业地修改或基于本规范实现兼容 ApiCatcher 的各类接收端与桌面分析软件，而不必承担额外的责任。
